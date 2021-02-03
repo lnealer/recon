@@ -2,7 +2,7 @@ import sys
 
 class Recon:
     def __init__(self, recon_in):
-        Recon.out = {}
+        Recon.out = {} # build recon.out with d0-pos data
         Recon.input = recon_in
         Recon.index = 0
         i = 1
@@ -20,6 +20,7 @@ class Recon:
 
 
     def update(self):
+        # update with d1 transaction data
         i = Recon.index
         d1_trn = Recon.input
         while not d1_trn[i].endswith("POS"):
@@ -48,8 +49,10 @@ class Recon:
             i += 1
         Recon.index = i+1
     
-    def compare(self):
-        out = open("recon.out", "w+")
+    def compare(self, path):
+        # compare recon.out with d1-pos and create out file
+        path += "/recon.out"
+        out = open(path, "w+")
         d1_trn = Recon.input
         i = Recon.index
         length = len(Recon.input)
@@ -78,7 +81,11 @@ if __name__ == '__main__':
     recon_in = sys.argv[1]
     f = open(recon_in, 'r')
     lines = f.readlines()
+    paths = sys.argv[1].split("/")
+    path = ""
+    for  i in range(len(paths)-1):
+        path += "/" + paths[i]
     recon_out = Recon(lines)
     recon_out.update()
-    recon_out.compare()
+    recon_out.compare(path)
     
