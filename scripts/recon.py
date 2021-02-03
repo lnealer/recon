@@ -52,6 +52,7 @@ class Recon:
     def compare(self, path):
         # compare recon.out with d1-pos and create out file
         path += "/recon.out"
+        print(path)
         out = open(path, "w+")
         d1_trn = Recon.input
         i = Recon.index
@@ -78,13 +79,23 @@ class Recon:
 
 
 if __name__ == '__main__':
-    recon_in = sys.argv[1]
+    if len(sys.argv) == 1:
+        recon_in = input("Please input a file path to recon.in: ")
+    else:
+        recon_in = sys.argv[1]
+    
+    # retrieve the path to recon.in
+    paths = recon_in.split("/")
+    path = ""
+    if (len(paths) > 0):
+        path = paths[0]
+    for  i in range(1, len(paths)-1):
+        path += "/" + paths[i]
+
+    # open the file
     f = open(recon_in, 'r')
     lines = f.readlines()
-    paths = sys.argv[1].split("/")
-    path = ""
-    for  i in range(len(paths)-1):
-        path += "/" + paths[i]
+
     recon_out = Recon(lines)
     recon_out.update()
     recon_out.compare(path)
