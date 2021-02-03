@@ -58,6 +58,7 @@ class Recon:
         d1_trn = Recon.input
         i = Recon.index
         length = len(Recon.input)
+
         while i < length:
             cur = d1_trn[i].split()
             stock = cur[0]
@@ -70,6 +71,7 @@ class Recon:
             if diff:
                 out.write(stock + " " + str(diff) + "\n")
             i += 1
+            
         for stock in Recon.out:  
             diff = -1*Recon.out[stock]
             if diff:
