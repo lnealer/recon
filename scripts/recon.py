@@ -26,12 +26,15 @@ class Recon:
         while not d1_trn[i] == "D1-POS\n":
             cur = d1_trn[i].split()
             if len(cur) == 0:
+                # check for blank line
                 i += 1
                 continue
             stock = cur[0]
             trn = cur[1]
             shares = float(cur[2])
             val = float(cur[3])
+
+            #check the transaction
             if stock not in Recon.out:
                 Recon.out[stock] = 0
             if (trn == "SELL"):
@@ -59,6 +62,7 @@ class Recon:
         i = Recon.index
         length = len(Recon.input)
 
+        # comparing shares in D1-POS
         while i < length:
             cur = d1_trn[i].split()
             stock = cur[0]
@@ -71,7 +75,8 @@ class Recon:
             if diff:
                 out.write(stock + " " + str(diff) + "\n")
             i += 1
-            
+        
+        # including shares not in D1-POS
         for stock in Recon.out:  
             diff = -1*Recon.out[stock]
             if diff:
