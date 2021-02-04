@@ -9,7 +9,7 @@ class Recon:
         d0_pos = Recon.input
         while not d0_pos[i].startswith("D1"):
             cur = d0_pos[i].split()
-            if not cur or d0_pos[i].startswith("D0"):
+            if len(cur)==0 or d0_pos[i].startswith("D0"):
                 i += 1
                 continue
             stock = cur[0]
@@ -23,11 +23,11 @@ class Recon:
         # update with d1 transaction data
         i = Recon.index
         d1_trn = Recon.input
-        while not d1_trn[i].endswith("POS"):
+        while not d1_trn[i] == "D1-POS\n":
             cur = d1_trn[i].split()
-            if not cur :
+            if len(cur) == 0:
                 i += 1
-                break
+                continue
             stock = cur[0]
             trn = cur[1]
             shares = float(cur[2])
