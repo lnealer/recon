@@ -95,10 +95,11 @@ if __name__ == '__main__':
     # retrieve the path to recon.in
     paths = recon_in.split("/")
     path = ""
-    if len(paths) > 1:
-        path = paths[0]
-    for  i in range(1, len(paths)-1):
+    i=0
+    while i < (len(paths) - 1):
         path += paths[i] + "/"
+        i += 1
+    print(path) 
 
     # open the file
     f = open(recon_in, 'r')
